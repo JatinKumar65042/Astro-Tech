@@ -6,14 +6,11 @@ import { useState, useEffect,Component } from "react";
 import {storage} from "./config/firebase"
 import { v4 } from "uuid";
 import Link from 'next/link';
-import { gsap } from "gsap";
 import Footer from './footer';
 
 export default function Home() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
-
-  
 
   const imagesListRef = ref(storage, "images/");
   const uploadFile = () => {
