@@ -1,12 +1,19 @@
 "use client"
 import Image from 'next/image'
+import firebase from "firebase/app"
 import { ref,uploadBytes,getDownloadURL,listAll,list, } from 'firebase/storage';
-import { useState, useEffect } from "react";
-import {storage} from "../config/firebase"
+import { useState, useEffect,Component } from "react";
+import {storage} from "./config/firebase"
 import { v4 } from "uuid";
+import Link from 'next/link';
+import { gsap } from "gsap";
+
+
 export default function Home() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
+
+  
 
   const imagesListRef = ref(storage, "images/");
   const uploadFile = () => {
@@ -28,25 +35,28 @@ export default function Home() {
       });
     });
   }, []);
+  // gsap.fromTo("#heading",{
+  //   opacity:0,  
+  // }, {opacity:1 });
+  
+  
 
   return (
-    <div>
-      <div className='flex items-center justify-center h-[150px] bg-black '>
-        <h1 className='text-white text-[4.5vw] font-serif'><span className='text-pink-400'>Photo</span> Gallery</h1>
+    
+    <div className='bg-[#E9F0F5]' id='main'>
+      {/* <div className='w-[20px] h-[20px] rounded-[50%] fixed z-8 mix-blend-difference bg-[#EDBFFF] ' id='cursor'>
+      
+      </div> */}
+    
+      <div className='flex items-center justify-center h-[150px] bg-[url("https://images.pexels.com/photos/3214110/pexels-photo-3214110.jpeg?auto=compress&cs=tinysrgb&w=600")] mb-[40px] '>
+        <h1 className='text-white text-[4.5vw] font-serif hover:text-[4.7vw] hover:transition-all hover:duration-300 duration-300' id='heading'><span className='text-pink-400 '>Photo</span> Gallery</h1>
       </div>
-      {/* <input
-        type="file"
-        onChange={(event) => {
-          setImageUpload(event.target.files[0]);
-        }} 
-      />*/}
-
-      {/* <button onClick={uploadFile}> Upload Image</button> */}
-      <div className='flex flex-wrap items-center justify-center '>
+      
+      <div className='flex flex-wrap items-center justify-center gap-[50px] '>
       {imageUrls.map((url) => {
         return( 
-        <div className=' h-[300px] w-[500px] ml-1 mt-2'>
-          <Image className='w-[500px] h-[300px]' width={500} height={500} alt="Picture of the author" src={url} />
+        <div className=' h-[330px] w-[450px]  bg-white flex items-center justify-center shadow-xl rounded-lg '>
+          <Link href="/imageSlider" ><Image className='w-[430px] h-[300px] hover:h-[330px] hover:w-[450px] hover:rounded-lg hover:transition-all hover:duration-300 duration-300 shadow-xl' width={500} height={500} alt="Picture of the author" src={url} /></Link>
 
         </div>
         
@@ -58,4 +68,11 @@ export default function Home() {
 
     </div>
   )
+//   var crsr=document.querySelector("#cursor");
+// var main=document.querySelector('#main');
+// main.addEventListener('mousemove',function(dets){
+//     crsr.style.left=dets.x+"px";
+//     crsr.style.top=dets.y+"px";
+// })
 }
+
