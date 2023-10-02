@@ -6,7 +6,6 @@ import { useState, useEffect,Component } from "react";
 import {storage} from "./config/firebase"
 import { v4 } from "uuid";
 import Link from 'next/link';
-import { gsap } from "gsap";
 import Footer from './footer';
 
 export default function Home() {
